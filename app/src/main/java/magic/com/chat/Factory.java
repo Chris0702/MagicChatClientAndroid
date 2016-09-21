@@ -12,6 +12,10 @@ public class Factory {
         return new ChatTextFragment();
     }
 
+    public SocketIO createSocketIO(String nameSpace) {
+        return new SocketIO(nameSpace);
+    }
+
     public Model createModel() {
         return new Model();
     }
