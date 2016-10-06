@@ -6,23 +6,24 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sendMessageView"
+        android:id="@+id/receiveMessageView"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:id="@+id/receiveMessageIcon" />
 
         <TextView
             android:layout_width="250dp"
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/sendMessageText" />
+            android:id="@+id/receiveMessageText" />
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:id="@+id/sendMessageIcon" />
+
     </LinearLayout>
 
 </LinearLayout>

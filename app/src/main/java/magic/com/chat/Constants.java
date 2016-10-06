@@ -4,7 +4,9 @@ public class Constants {
     //    public static final String SERVER_URL = "http://54.199.166.58:3000";
     public static final String SERVER_URL = "http://192.168.0.10:3000";
     public static final String CHAT_NAMESPACE = "/chat";
-    public static final String CHAT_EVENT = "chatMessage";
+    public static final String CHAT_MESSAGE_EVENT = "chatMessage";
+    public static final String CHAT_IMAGE_EVENT = "chatImage";
+    public static final String SYSTEM_EVENT = "systemMessage";
     public static final String FIND_EVENT = "findType";
     public static final String MALE_BACKGROUND_COLOR = "#b3a5f6";
     public static final String MALE_TEXT_COLOR = "#ff0000";

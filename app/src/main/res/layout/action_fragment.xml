@@ -9,27 +9,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="action_fragment"
-        android:id="@+id/textView2" />
+        android:text="往上滑:男孩找女孩\n往下滑:女孩找男孩\n往左滑:男孩找男孩\n往右滑:?"
+        android:id="@+id/textView2"
+        android:textColor="#ffffff" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="boyFindGirl"
         android:id="@+id/boyFindGirl"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        android:visibility="gone" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="girlFindBoy"
         android:id="@+id/girlFindBoy"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        android:visibility="gone" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="boyFindBoy"
         android:id="@+id/boyFindBoy"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        android:visibility="gone" />
 </LinearLayout>

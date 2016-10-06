@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     android:weightSum="1"
     android:id="@+id/chatMainLayout">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="系統訊息:連線失敗"
+        android:id="@+id/systemMessage"
+        android:layout_weight="0.02"
+        android:background="#969595"
+        android:textColor="#ffff41" />
+
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/chatMessageScrollLayout"
@@ -31,12 +42,14 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:weightSum="1">
 
         <EditText
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:id="@+id/input" />
+            android:id="@+id/input"
+            android:layout_weight="1.02" />
 
         <Button
             android:layout_width="wrap_content"
@@ -45,13 +58,6 @@
             android:id="@+id/send"
             android:layout_gravity="right" />
     </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="go action"
-        android:id="@+id/goAction"
-        android:layout_gravity="bottom" />
 
 
 </LinearLayout>

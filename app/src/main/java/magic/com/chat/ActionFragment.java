@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -55,7 +56,7 @@ public class ActionFragment extends Fragment {
         boyFindBoy = (Button) view.findViewById(R.id.boyFindBoy);
         action_background =(LinearLayout)view.findViewById(R.id.action_background);
 
-        action_background.setBackgroundResource(R.drawable.female_body);
+        action_background.setBackgroundResource(R.drawable.main);
         model = factory.createModel();
     }
 
@@ -80,13 +81,40 @@ public class ActionFragment extends Fragment {
                     upX = event.getX();
                     upY = event.getY();
                     if(downY - upY > Constants.TOUCH_MOVE_DIFF_Y) {
-                        Toast.makeText(getActivity(), "向上滑", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "男孩找女孩", Toast.LENGTH_SHORT).show();
+                        action_background.setBackgroundResource(R.drawable.female_body);
+                        Handler handler=new Handler();
+                        Runnable runnable=new Runnable(){
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+                                //要做的事情，这里再次调用此Runnable对象，以实现每两秒实现一次的定时器操作
+                                boyFindGirl();
+                            }
+                        };
+                        handler.postDelayed(runnable, 2000);
+
+//                        Toast.makeText(getActivity(), "向上滑", Toast.LENGTH_SHORT).show();
                     } else if(upY - downY > Constants.TOUCH_MOVE_DIFF_Y) {
-                        Toast.makeText(getActivity(), "向下滑", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "女孩找男孩", Toast.LENGTH_SHORT).show();
+                        action_background.setBackgroundResource(R.drawable.male_body);
+                        Handler handler=new Handler();
+                        Runnable runnable=new Runnable(){
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+                                //要做的事情，这里再次调用此Runnable对象，以实现每两秒实现一次的定时器操作
+                                girlFindBoy();
+                            }
+                        };
+                        handler.postDelayed(runnable, 2000);
                     } else if(downX - upX > Constants.TOUCH_MOVE_DIFF_X) {
-                        Toast.makeText(getActivity(), "向左滑", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "男孩找男孩", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "向左滑", Toast.LENGTH_SHORT).show();
+                        boyFindBoy();
                     } else if(upX - downX > Constants.TOUCH_MOVE_DIFF_X) {
-                        Toast.makeText(getActivity(), "向右滑", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "女孩找女孩?", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "向右滑", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -99,34 +127,49 @@ public class ActionFragment extends Fragment {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                Toast.makeText(getActivity(), "boyFindGirl click" , Toast.LENGTH_SHORT).show();
-                Bundle bundle = new Bundle();
-                bundle.putString("findType", "boyFindGirl");
-                chatTextFragment.setArguments(bundle);
-                model.changeFragment(getFragmentManager(), R.id.content_main, chatTextFragment);
+                boyFindGirl();
             }
         });
         girlFindBoy.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                Toast.makeText(getActivity(), "girlFindBoy click", Toast.LENGTH_SHORT).show();
-                Bundle bundle = new Bundle();
-                bundle.putString("findType", "girlFindBoy");
-                chatTextFragment.setArguments(bundle);
-                model.changeFragment(getFragmentManager(), R.id.content_main, chatTextFragment);
+                girlFindBoy();
             }
         });
         boyFindBoy.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                Toast.makeText(getActivity(), "boyFindBoy click", Toast.LENGTH_SHORT).show();
-                Bundle bundle = new Bundle();
-                bundle.putString("findType", "boyFindBoy");
-                chatTextFragment.setArguments(bundle);
-                model.changeFragment(getFragmentManager(), R.id.content_main, chatTextFragment);
+                boyFindBoy();
             }
         });
+    }
+
+    public void boyFindGirl()
+    {
+//        Toast.makeText(getActivity(), "boyFindGirl click" , Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putString("findType", "boyFindGirl");
+        chatTextFragment.setArguments(bundle);
+        model.changeFragment(getFragmentManager(), R.id.content_main, chatTextFragment);
+    }
+
+    public void girlFindBoy()
+    {
+//        Toast.makeText(getActivity(), "girlFindBoy click", Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putString("findType", "girlFindBoy");
+        chatTextFragment.setArguments(bundle);
+        model.changeFragment(getFragmentManager(), R.id.content_main, chatTextFragment);
+    }
+
+    public void boyFindBoy()
+    {
+//        Toast.makeText(getActivity(), "boyFindBoy click", Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putString("findType", "boyFindBoy");
+        chatTextFragment.setArguments(bundle);
+        model.changeFragment(getFragmentManager(), R.id.content_main, chatTextFragment);
     }
 }
