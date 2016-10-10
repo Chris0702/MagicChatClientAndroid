@@ -9,15 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sendMessageView"
-        android:paddingLeft="10dp"
+        android:paddingLeft="0dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp">
 
-        <TextView
-            android:layout_width="250dp"
-            android:layout_height="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/sendMessageText" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/sendMessageContent"
+            android:paddingLeft="10dp"
+            android:paddingTop="0dp"
+            android:paddingRight="0dp">
+        </LinearLayout>
 
         <ImageView
             android:layout_width="100dp"

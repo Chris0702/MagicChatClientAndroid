@@ -7,10 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -86,8 +88,10 @@ public class ChatTextFragment extends Fragment {
                     input.setText("");
                     LayoutInflater inflater = getActivity().getLayoutInflater(); //調用Activity的getLayoutInflater()
                     View sendMessageView = LayoutInflater.from(getActivity()).inflate(R.layout.chat_send_message_view, null);
-                    TextView sendMessageViewText = (TextView) sendMessageView.findViewById(R.id.sendMessageText);
+                    LinearLayout sendMessageContent = (LinearLayout) sendMessageView.findViewById(R.id.sendMessageContent);
+                    TextView sendMessageViewText =new TextView(sendMessageView.getContext());
                     ImageView sendMessageViewIcon = (ImageView) sendMessageView.findViewById(R.id.sendMessageIcon);
+                    Handler handler=new Handler();
                     if (myGender.equals("girl")) {
                         sendMessageViewIcon.setImageResource(R.drawable.female_icon);
                         sendMessageViewText.setTextColor(Color.parseColor(Constants.FEMALE_TEXT_COLOR));
@@ -98,8 +102,19 @@ public class ChatTextFragment extends Fragment {
                         sendMessageViewText.setBackgroundColor(Color.parseColor(Constants.MALE_BACKGROUND_COLOR));
                     }
                     sendMessageViewText.setText(message);
+                    sendMessageContent.addView(sendMessageViewText);
+                    sendMessageViewText.setTextSize(Constants.MESSAGE_TEXT_SIZE);
                     chatContent.addView(sendMessageView);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            chatContentScroll.fullScroll(ScrollView.FOCUS_DOWN);
+                        }
+                    });
+                    System.out.println("aaaaaaaaaaaaaa: "+chatContentScroll.fullScroll(ScrollView.FOCUS_DOWN));
+//                    System.out.println("aaaaaaaaaaaaaa: "+sendMessageViewIcon.getWidth());
                 }
+
             }
         });
     }
@@ -155,31 +170,44 @@ public class ChatTextFragment extends Fragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    String receiveChatText = "image   ";
-                    Toast.makeText(getActivity(), receiveChatText, Toast.LENGTH_SHORT).show();
                     LayoutInflater inflater = getActivity().getLayoutInflater(); //調用Activity的getLayoutInflater()
                     View receiveMessageView = LayoutInflater.from(getActivity()).inflate(R.layout.chat_receive_message_view, null);
-                    TextView receiveMessageViewText = (TextView) receiveMessageView.findViewById(R.id.receiveMessageText);
+                    LinearLayout receiveMessageContent = (LinearLayout) receiveMessageView.findViewById(R.id.receiveMessageContent);
                     ImageView receiveMessageViewIcon = (ImageView) receiveMessageView.findViewById(R.id.receiveMessageIcon);
+                    ImageView receiveMessageViewImage = new ImageView(receiveMessageView.getContext());
+                    Handler handler=new Handler();
                     if (talkGender.equals("girl")) {
-//                        receiveMessageViewIcon.setImageResource(R.drawable.female_icon);
-
-                        receiveMessageViewText.setTextColor(Color.parseColor(Constants.FEMALE_TEXT_COLOR));
-                        receiveMessageViewText.setBackgroundColor(Color.parseColor(Constants.FEMALE_BACKGROUND_COLOR));
+                        receiveMessageViewIcon.setImageResource(R.drawable.female_icon);
                     } else {
-//                        receiveMessageViewIcon.setImageResource(R.drawable.male_icon);
+                        receiveMessageViewIcon.setImageResource(R.drawable.male_icon);
 
-                        receiveMessageViewText.setTextColor(Color.parseColor(Constants.MALE_TEXT_COLOR));
-                        receiveMessageViewText.setBackgroundColor(Color.parseColor(Constants.MALE_BACKGROUND_COLOR));
                     }
-
+                    receiveMessageContent.setBackgroundColor(Color.GRAY);
+                    receiveMessageViewImage.setBackgroundColor(Color.BLUE);
                     byte[] byteArray = (byte[]) args[0];
                     Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                    receiveMessageViewIcon.setImageBitmap(bmp);
-//                    receiveMessageViewIcon.
-                    receiveMessageViewText.setText(receiveChatText);
+                    if (bmp.getHeight() <= Constants.MESSAGE_VIEW_IMAGE_MAX_HEIGHT) {
+                        receiveMessageContent.getLayoutParams().height = bmp.getHeight();
+                    } else {
+                        receiveMessageContent.getLayoutParams().height = Constants.MESSAGE_VIEW_IMAGE_MAX_HEIGHT;
+//                        receiveMessageContent.getLayoutParams().height = bmp.getHeight();
+                    }
+//                    receiveMessageContent.getLayoutParams().height=receiveMessageContent.getLayoutParams().width*bmp.getHeight()/bmp.getWidth();
+                    receiveMessageViewImage.setImageBitmap(bmp);
+                    receiveMessageViewImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    receiveMessageViewImage.setPadding(0,0,0,0);
+//                    receiveMessageViewImage.set
+                    receiveMessageContent.addView(receiveMessageViewImage);
+
+
+
                     chatContent.addView(receiveMessageView);
-                    chatContentScroll.fullScroll(ScrollView.FOCUS_DOWN);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            chatContentScroll.fullScroll(ScrollView.FOCUS_DOWN);
+                        }
+                    });
                 }
             });
         }
@@ -194,8 +222,10 @@ public class ChatTextFragment extends Fragment {
                     String receiveChatText = "" + args[0];
                     LayoutInflater inflater = getActivity().getLayoutInflater(); //調用Activity的getLayoutInflater()
                     View receiveMessageView = LayoutInflater.from(getActivity()).inflate(R.layout.chat_receive_message_view, null);
-                    TextView receiveMessageViewText = (TextView) receiveMessageView.findViewById(R.id.receiveMessageText);
+                    LinearLayout receiveMessageContent = (LinearLayout) receiveMessageView.findViewById(R.id.receiveMessageContent);
+                    TextView receiveMessageViewText = new TextView(receiveMessageView.getContext());
                     ImageView receiveMessageViewIcon = (ImageView) receiveMessageView.findViewById(R.id.receiveMessageIcon);
+                    Handler handler=new Handler();
                     if (talkGender.equals("girl")) {
                         receiveMessageViewIcon.setImageResource(R.drawable.female_icon);
                         receiveMessageViewText.setTextColor(Color.parseColor(Constants.FEMALE_TEXT_COLOR));
@@ -206,8 +236,16 @@ public class ChatTextFragment extends Fragment {
                         receiveMessageViewText.setBackgroundColor(Color.parseColor(Constants.MALE_BACKGROUND_COLOR));
                     }
                     receiveMessageViewText.setText(receiveChatText);
+                    receiveMessageContent.addView(receiveMessageViewText);
+                    receiveMessageContent.setBackgroundColor(Color.GRAY);
+                    receiveMessageViewText.setTextSize(Constants.MESSAGE_TEXT_SIZE);
                     chatContent.addView(receiveMessageView);
-                    chatContentScroll.fullScroll(ScrollView.FOCUS_DOWN);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            chatContentScroll.fullScroll(ScrollView.FOCUS_DOWN);
+                        }
+                    });
                 }
             });
         }

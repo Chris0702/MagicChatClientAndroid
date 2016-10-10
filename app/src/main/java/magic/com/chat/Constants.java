@@ -14,5 +14,6 @@ public class Constants {
     public static final String FEMALE_TEXT_COLOR = "#0000ff";
     public static final int TOUCH_MOVE_DIFF_X = 50;
     public static final int TOUCH_MOVE_DIFF_Y = 300;
-
+    public static final int MESSAGE_VIEW_IMAGE_MAX_HEIGHT = 700;
+    public static final int MESSAGE_TEXT_SIZE = 25;
 }
