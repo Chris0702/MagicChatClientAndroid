@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="270dp"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:id="@+id/sendMessageContent"
             android:paddingLeft="10dp"

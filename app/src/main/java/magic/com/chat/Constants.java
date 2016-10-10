@@ -16,4 +16,6 @@ public class Constants {
     public static final int TOUCH_MOVE_DIFF_Y = 300;
     public static final int MESSAGE_VIEW_IMAGE_MAX_HEIGHT = 700;
     public static final int MESSAGE_TEXT_SIZE = 25;
+    public static final int PHOTO = 99;
+    public static final int BITMAP_COMPRESS_RATIO = 30;
 }
