@@ -30,7 +30,8 @@ import io.socket.emitter.Emitter;
 public class ChatTextFragment extends Fragment {
     private Factory factory;
     private Fragment actionFragment;
-    private Button send;
+    private Button sendMessageButton;
+    private Button sendImageButton;
     private EditText input;
     private Model model;
     private LinearLayout chatContent;
@@ -78,7 +79,7 @@ public class ChatTextFragment extends Fragment {
     }
 
     private void buttonClick() {
-        send.setOnClickListener(new Button.OnClickListener() {
+        sendMessageButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
@@ -111,12 +112,19 @@ public class ChatTextFragment extends Fragment {
                             chatContentScroll.fullScroll(ScrollView.FOCUS_DOWN);
                         }
                     });
-                    System.out.println("aaaaaaaaaaaaaa: "+chatContentScroll.fullScroll(ScrollView.FOCUS_DOWN));
+//                    System.out.println("aaaaaaaaaaaaaa: "+chatContentScroll.fullScroll(ScrollView.FOCUS_DOWN));
 //                    System.out.println("aaaaaaaaaaaaaa: "+sendMessageViewIcon.getWidth());
                 }
-
             }
         });
+
+        sendImageButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                System.out.println("sendmessageImg");
+            }
+        });
+
     }
 
     private void init(View view) {
@@ -140,7 +148,8 @@ public class ChatTextFragment extends Fragment {
         String findType = getArguments().getString("findType");
         factory = new Factory();
         actionFragment = factory.createActionFragment();
-        send = (Button) view.findViewById(R.id.send);
+        sendMessageButton = (Button) view.findViewById(R.id.sendMessageButton);
+        sendImageButton = (Button) view.findViewById(R.id.sendImageButton);
         input = (EditText) view.findViewById(R.id.input);
 //        chatContent = (TextView) view.findViewById(R.id.chat_content);
         chatContent = (LinearLayout) view.findViewById(R.id.chatMessageContentLayout);
